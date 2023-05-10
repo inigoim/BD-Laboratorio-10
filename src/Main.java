@@ -212,6 +212,7 @@ public class Main {
      *     <li> Recorrer el resultado de 4 y establecer parámetros para consulta de Oracle
      *     <li> Ejecutar la consulta INSERT en Oracle
      *     <li> Librero recursos y cerrar conexión
+     * </ol>
      */
     public static void ejercicio6() {
         try (Connection mcnn = mds.getConnection("DBC15", "DBC15");
