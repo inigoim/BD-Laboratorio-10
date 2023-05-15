@@ -1,8 +1,6 @@
-import com.mysql.cj.jdbc.MysqlDataSource;
 import oracle.jdbc.datasource.impl.OracleDataSource;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -28,19 +26,20 @@ public class Ejercicio7 {
         ods.setPassword("BDC15");
 
         try (Connection conn = ods.getConnection();
-             Statement stmt = conn.createStatement();
+             Statement stmt = conn.createStatement()
         ) {
             conn.setAutoCommit(false);
-            String viajesNuevos = "SELECT Destino, add_months(FechaSalida, 12), Dias, PrecioDia, CiudadSalida, DNI" +
-                    "FROM viaje" +
-                    "WHERE fecha BETWEEN TO_DATE('01/01/2022', 'DD/MM/YYYY') AND TO_DATE('31/12/2022', 'DD/MM/YYYY')";
+            String viajesNuevos = "(SELECT Destino, add_months(FechaSalida, 12), Dias, PrecioDia, CiudadSalida, DNI " +
+                    "FROM viaje " +
+                    "WHERE FechaSalida BETWEEN TO_DATE('01/01/2022', 'DD/MM/YYYY') AND TO_DATE('31/12/2022', 'DD/MM/YYYY'))";
             try {
-                stmt.executeUpdate("INSERT " + viajesNuevos + " INTO viaje");
+                stmt.executeUpdate("INSERT INTO viaje " + viajesNuevos);
                 conn.commit();
-                System.out.println("Commited");
+                System.out.println("Commit");
             } catch (SQLException e) {
+                System.err.print(e.getMessage());
                 conn.rollback();
-                System.out.println("Rolled back");
+                System.err.println("Rollback");
             }
         }
     }
