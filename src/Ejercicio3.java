@@ -24,10 +24,6 @@ public class Ejercicio3 {
         mds.setURL("jdbc:mysql://dif-mysql.ehu.es:3306/DBC15?&useSSL=false");
         mds.setUser("DBC15"); mds.setPassword("DBC15");
 
-        OracleDataSource ods = new OracleDataSource();
-        ods.setURL("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa");
-        ods.setUser("BDC15"); ods.setPassword("BDC15");
-
         try (Connection conn = mds.getConnection();
              PreparedStatement pstm =conn.prepareStatement
                      ("SELECT * FROM CLIENTE WHERE DNI = ? AND NTelefono = ?");

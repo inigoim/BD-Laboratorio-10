@@ -2,7 +2,9 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import oracle.jdbc.datasource.impl.OracleDataSource;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * <b>Transacciones en ORACLE.</b> Insertar las tuplas necesarias para repetir los viajes del año 2022 en el
@@ -20,18 +22,26 @@ import java.sql.SQLException;
 public class Ejercicio7 {
 
     public static void main(String[] args) throws SQLException {
-        MysqlDataSource mds = new MysqlDataSource();
-        mds.setURL("jdbc:mysql://dif-mysql.ehu.es:3306/DBC15?&useSSL=false");
-        mds.setUser("DBC15"); mds.setPassword("DBC15");
-
         OracleDataSource ods = new OracleDataSource();
         ods.setURL("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa");
-        ods.setUser("BDC15"); ods.setPassword("BDC15");
+        ods.setUser("BDC15");
+        ods.setPassword("BDC15");
 
-        try(Connection conn = ods.getConnection();) {
+        try (Connection conn = ods.getConnection();
+             Statement stmt = conn.createStatement();
+        ) {
             conn.setAutoCommit(false);
-            conn.commit();
+            String viajesNuevos = "SELECT Destino, add_months(FechaSalida, 12), Dias, PrecioDia, CiudadSalida, DNI" +
+                    "FROM viaje" +
+                    "WHERE fecha BETWEEN TO_DATE('01/01/2022', 'DD/MM/YYYY') AND TO_DATE('31/12/2022', 'DD/MM/YYYY')";
+            try {
+                stmt.executeUpdate("INSERT " + viajesNuevos + " INTO viaje");
+                conn.commit();
+                System.out.println("Commited");
+            } catch (SQLException e) {
+                conn.rollback();
+                System.out.println("Rolled back");
+            }
         }
-
     }
 }
