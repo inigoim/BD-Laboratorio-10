@@ -8,30 +8,31 @@ import java.sql.*;
  */
 public class Ejercicio9 {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         MysqlDataSource ds = new MysqlDataSource();
         ds.setURL("jdbc:mysql://dif-mysql.ehu.es:3306/DBC15?&useSSL=false");
-        ds.setUser("DBC15"); ds.setPassword("DBC15");
+        ds.setUser("DBC15");
+        ds.setPassword("DBC15");
 
         // Procedimiento almacenado en MySQL
         String consultaInigo2 =
                 "SELECT DISTINCT " +
-                "personal.Nombre, personal.Salario, personal.SuperDni, trabaja_en.Horas, buque.NombreBuque " +
-                "FROM " +
-                "((((personal JOIN familiar ON personal.Dni = familiar.DniP AND familiar.Parentesco LIKE 'Hij_') " +
-                "JOIN trabaja_en ON personal.Dni=trabaja_en.DniP AND trabaja_en.Horas >= horas_trabajo) " +
-                "JOIN han_utilizado ON trabaja_en.NumProy = han_utilizado.NumProy) " +
-                "JOIN buque ON han_utilizado.NombreBuque = buque.NombreBuque) " +
-                "JOIN tipobuque ON buque.Tipo = tipobuque.Tipo AND tipobuque.Tonelaje >= tonelaje_minimo";
+                        "personal.Nombre, personal.Salario, personal.SuperDni, trabaja_en.Horas, buque.NombreBuque " +
+                        "FROM " +
+                        "((((personal JOIN familiar ON personal.Dni = familiar.DniP AND familiar.Parentesco LIKE 'Hij_') " +
+                        "JOIN trabaja_en ON personal.Dni=trabaja_en.DniP AND trabaja_en.Horas >= horas_trabajo) " +
+                        "JOIN han_utilizado ON trabaja_en.NumProy = han_utilizado.NumProy) " +
+                        "JOIN buque ON han_utilizado.NombreBuque = buque.NombreBuque) " +
+                        "JOIN tipobuque ON buque.Tipo = tipobuque.Tipo AND tipobuque.Tonelaje >= tonelaje_minimo";
 
         // Añadir procedimiento a la base de datos
         try (Connection conn = ds.getConnection();
-        Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement()) {
             stmt.executeUpdate("DROP PROCEDURE IF EXISTS consulta_inigo2");
             stmt.executeUpdate("CREATE PROCEDURE consulta_inigo2" +
                     "(IN horas_trabajo int, IN tonelaje_minimo int) " + consultaInigo2);
         } catch (SQLException e) {
-            System.err.println("Error al añadir procedimiento en MySQL");
+            System.err.println("Error al añadir procedimiento en MySQL:");
             System.err.println(e.getMessage());
         }
 
@@ -51,12 +52,12 @@ public class Ejercicio9 {
                             rs.getString(5));
                 }
             } catch (SQLException e) {
-                System.err.println("Error al llamar al procedimiento en MySQL");
+                System.err.println("Error al llamar al procedimiento en MySQL:");
                 System.err.println(e.getMessage());
             }
         }
         catch (SQLException e) {
-            System.err.println("Error al preparar el procedimiento en MySQL");
+            System.err.println("Error al preparar el procedimiento en MySQL:");
             System.err.println(e.getMessage());
         }
     }

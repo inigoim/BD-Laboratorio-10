@@ -32,6 +32,7 @@ public class Ejercicio1 {
         ods.setURL("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa");
         ods.setUser("BDC15"); ods.setPassword("BDC15");
 
+
         System.out.printf("MYSQL:%n%n");
         mostrarClientes(mds);
 
@@ -53,7 +54,9 @@ public class Ejercicio1 {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener los datos de los clientes:");
+            System.err.println(e.getMessage());
         }
     }
+
 }

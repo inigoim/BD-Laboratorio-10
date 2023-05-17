@@ -45,15 +45,18 @@ public class Ejercicio6 {
                 opstmt.setString(1, rs.getString(1));
                 opstmt.setString(2, rs.getString(2));
                 opstmt.setInt(3, rs.getInt(3));
-                try {opstmt.executeUpdate();}
-                catch (SQLException e) {
+                try {
+                    opstmt.executeUpdate();
+                } catch (SQLException e) {
                     if (e.getErrorCode() == 1)
                         System.err.println("El guia 10000001 ya existe en la base de datos Oracle.");
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        catch (SQLException e) {
+            System.err.println("Error durante la conexión:");
+            System.err.println(e.getMessage());
         }
     }
 }

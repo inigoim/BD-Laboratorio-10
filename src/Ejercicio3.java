@@ -1,7 +1,9 @@
 import com.mysql.cj.jdbc.MysqlDataSource;
-import oracle.jdbc.datasource.impl.OracleDataSource;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -19,24 +21,28 @@ import java.util.Scanner;
  * </ol>
  */
 public class Ejercicio3 {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         MysqlDataSource mds = new MysqlDataSource();
         mds.setURL("jdbc:mysql://dif-mysql.ehu.es:3306/DBC15?&useSSL=false");
         mds.setUser("DBC15"); mds.setPassword("DBC15");
 
+
+        // Preparar los recursos
         try (Connection conn = mds.getConnection();
-             PreparedStatement pstm =conn.prepareStatement
+             PreparedStatement pstm = conn.prepareStatement
                      ("SELECT * FROM CLIENTE WHERE DNI = ? AND NTelefono = ?");
              Scanner sc = new Scanner(System.in)
         ) {
+            // Leer datos de teclado
             System.out.print("DNI del cliente: ");
             String DNI = sc.nextLine();
             System.out.print("Numero de telefono: ");
-            int NTelefono = sc.nextInt();
+            int NumeroTelefono = sc.nextInt();
 
             pstm.setString(1, DNI);
-            pstm.setInt(2, NTelefono);
+            pstm.setInt(2, NumeroTelefono);
 
+            // Ejecutar SQL y mostrar el resultado
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
                     System.out.printf("%s \t %s \t\t %s \t\t\t %d %n",
@@ -48,7 +54,8 @@ public class Ejercicio3 {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error en la ejecución:");
+            System.err.println(e.getMessage());
         }
     }
 }

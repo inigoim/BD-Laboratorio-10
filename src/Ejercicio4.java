@@ -1,4 +1,3 @@
-import com.mysql.cj.jdbc.MysqlDataSource;
 import oracle.jdbc.datasource.impl.OracleDataSource;
 
 import java.sql.Connection;
@@ -22,10 +21,10 @@ public class Ejercicio4 {
             stmt.executeUpdate("DELETE FROM idioma WHERE DNI = 65111111");
             stmt.executeUpdate("INSERT INTO idioma VALUES ('72515657', 'Castellano')");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        catch (SQLException e) {
+            System.err.println("Error durante la conexión:");
+            System.err.println(e.getMessage());
         }
     }
-
-
 }

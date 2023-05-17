@@ -1,5 +1,4 @@
 import com.mysql.cj.jdbc.MysqlDataSource;
-import oracle.jdbc.datasource.impl.OracleDataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,25 +24,29 @@ import java.sql.SQLException;
  * </ol>
  */
 public class Ejercicio2 {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         MysqlDataSource mds = new MysqlDataSource();
         mds.setURL("jdbc:mysql://dif-mysql.ehu.es:3306/DBC15?&useSSL=false");
         mds.setUser("DBC15"); mds.setPassword("DBC15");
 
+
         try (Connection conn = mds.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM CLIENTE WHERE DNI = ?")) {
-
-            mostrarCliente(pstmt, "10000001");
-            mostrarCliente(pstmt, "10000004");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+             PreparedStatement pstmt =
+                     conn.prepareStatement("SELECT * FROM CLIENTE WHERE DNI = ?")
+        ) {
+            pstmt.setString(1, "10000001");
+            mostrarCliente(pstmt);
+            pstmt.setString(1, "10000004");
+            mostrarCliente(pstmt);
+        }
+        catch (SQLException e) {
+            System.err.println("Error al conectar a la base de datos:");
+            System.err.println(e.getMessage());
         }
 
     }
 
-    public static void mostrarCliente(PreparedStatement pstmt, String DNI) throws SQLException {
-        pstmt.setString(1, DNI);
+    public static void mostrarCliente(PreparedStatement pstmt){
         try (ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
                 System.out.printf("%s \t %s \t\t %s \t\t\t %d %n",
@@ -52,6 +55,9 @@ public class Ejercicio2 {
                         rs.getString("Direccion"),
                         rs.getInt("NTelefono"));
             }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los datos del cliente:");
+            System.err.println(e.getMessage());
         }
     }
 

@@ -1,4 +1,3 @@
-import com.mysql.cj.jdbc.MysqlDataSource;
 import oracle.jdbc.datasource.impl.OracleDataSource;
 
 import java.sql.Connection;
@@ -15,21 +14,25 @@ public class Ejercicio5 {
     public static void main(String[] args) throws SQLException {
         OracleDataSource ods = new OracleDataSource();
         ods.setURL("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa");
-        ods.setUser("BDC15"); ods.setPassword("BDC15");
+        ods.setUser("BDC15");
+        ods.setPassword("BDC15");
 
         try (Connection conn = ods.getConnection();
              Statement stmt = conn.createStatement()
         ) {
             stmt.executeUpdate("UPDATE cliente SET Direccion = 'Calle San Domingo' WHERE DNI = '10000006'");
             stmt.executeUpdate("DELETE FROM idioma WHERE DNI = 65111111");
-            try {stmt.executeUpdate("INSERT INTO idioma VALUES ('72515657', 'Castellano')");}
-            catch (SQLException e) {
+            try {
+                stmt.executeUpdate("INSERT INTO idioma VALUES ('72515657', 'Castellano')");
+            } catch (SQLException e) {
                 if (e.getErrorCode() == 1)
                     System.err.println("El guia 72515657 ya tiene el idioma 'Castellano'.");
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        catch (SQLException e) {
+            System.err.println("Error durante la conexión:");
+            System.err.println(e.getMessage());
         }
     }
 }
