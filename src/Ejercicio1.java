@@ -21,6 +21,10 @@ import java.sql.Statement;
  *     <li> Recorrer cada uno de los resultados obtenidos e imprimir
  *     <li> Liberar recursos y cerrar conexión
  * </ol>
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio1 {
     public static void main(String[] args) throws SQLException {

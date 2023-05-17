@@ -7,6 +7,10 @@ import java.sql.Statement;
 /**
  * Actualizar la base de datos Viajes de Oracle con UPDATE, DELETE e INSERT.
  * Escoged qué tupla insertar en qué tabla, qué tupla eliminar y qué tupla actualizar.
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio4 {
     public static void main(String[] args) throws SQLException {

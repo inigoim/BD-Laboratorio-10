@@ -22,6 +22,10 @@ import java.sql.SQLException;
  *     <li> Reutilización
  *     <li> Liberar recursos y cerrar conexión
  * </ol>
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio2 {
     public static void main(String[] args) {

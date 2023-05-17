@@ -19,6 +19,10 @@ import java.util.Scanner;
  *     <li> Recorrer el resultado e imprimir
  *     <li> Liberar recursos y cerrar conexión
  * </ol>
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio3 {
     public static void main(String[] args) {

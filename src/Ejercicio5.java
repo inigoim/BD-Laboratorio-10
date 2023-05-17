@@ -9,6 +9,10 @@ import java.sql.Statement;
  * volver a insertar la tupla recién insertada en el Ejercicio 4. Producirá un error, ya que no es posible una nueva
  * tupla con la misma clave primaria. Y este error debe ser tratado como una SQLException en este ejercicio.
  * El código de error para la clave repetida en Oracle es ORA-00001 (getErrorCode () == 1).
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio5 {
     public static void main(String[] args) throws SQLException {

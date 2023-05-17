@@ -5,6 +5,10 @@ import java.sql.*;
 /**
  * <b> Procedimientos almacenados en MySQL. </b> Define un procedimiento almacenado (procedimiento o función)
  * sin parámetros diferente a los ejemplos de las diapositivas y ejecútalos desde Java.
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio8 {
 

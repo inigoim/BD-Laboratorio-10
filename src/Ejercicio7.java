@@ -16,6 +16,10 @@ import java.sql.Statement;
  *     <li> Terminar con commit en caso de éxito (después de terminar la transacción)
  *      o con rollback en caso de error (dentro del catch) </li>
  * </ol>
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio7 {
     public static void main(String[] args) throws SQLException {

@@ -20,6 +20,10 @@ import java.sql.*;
  *     <li> Ejecutar la consulta INSERT en Oracle
  *     <li> Librero recursos y cerrar conexión
  * </ol>
+ *
+ * @author Iñigo Imaña
+ * @author Leire Gesteira
+ * @author Marcos Chouciño
  */
 public class Ejercicio6 {
     public static void main(String[] args) throws SQLException {
